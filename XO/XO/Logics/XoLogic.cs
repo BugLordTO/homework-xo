@@ -19,13 +19,8 @@ namespace XO.Logics
         {
             var rowCount = board.GetLength(1);
             var columnCount = board.GetLength(1);
+            var allSlots = GetAllSlotsIn1D(board);
 
-            var allSlots = Enumerable.Empty<char>().ToList();
-            for (int i = 0; i < rowCount; i++)
-            {
-                var slots = GetHorizontalSlot(board, i);
-                allSlots.AddRange(slots);
-            }
             var isFullMarkedBoard = allSlots.All(s => s != EMPTY);
             if (isFullMarkedBoard)
             {
@@ -69,13 +64,7 @@ namespace XO.Logics
         {
             var rowCount = board.GetLength(1);
             var columnCount = board.GetLength(1);
-
-            var allSlots = Enumerable.Empty<char>().ToList();
-            for (int i = 0; i < rowCount; i++)
-            {
-                var slots = GetHorizontalSlot(board, i);
-                allSlots.AddRange(slots);
-            }
+            var allSlots = GetAllSlotsIn1D(board);
 
             var isContainValidChar = allSlots.All(x => x == X || x == O || x == EMPTY);
             if (!isContainValidChar)
@@ -141,13 +130,7 @@ namespace XO.Logics
         {
             var rowCount = board.GetLength(1);
             var columnCount = board.GetLength(1);
-
-            var allSlots = Enumerable.Empty<char>().ToList();
-            for (int i = 0; i < rowCount; i++)
-            {
-                var slots = GetHorizontalSlot(board, i);
-                allSlots.AddRange(slots);
-            }
+            var allSlots = GetAllSlotsIn1D(board);
 
             var isRowIndexOutOfBound = rowIndex >= rowCount;
             if (isRowIndexOutOfBound)
@@ -194,6 +177,18 @@ namespace XO.Logics
             }
 
             return true;
+        }
+
+        public char[] GetAllSlotsIn1D(char[,] board)
+        {
+            var rowCount = board.GetLength(1);
+            var allSlots = Enumerable.Empty<char>().ToList();
+            for (int i = 0; i < rowCount; i++)
+            {
+                var slots = GetHorizontalSlot(board, i);
+                allSlots.AddRange(slots);
+            }
+            return allSlots.ToArray();
         }
 
         /// <summary>

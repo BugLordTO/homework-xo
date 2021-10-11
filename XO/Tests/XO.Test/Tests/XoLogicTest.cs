@@ -141,6 +141,29 @@ namespace XO.Test
             actual.Should().Be(expected);
         }
 
+        public static IEnumerable<object[]> GetAllSlotsIn1D_Scearios = new List<object[]>
+        {
+            new object[] { new char[,] {
+                { 'o', 'x', 'o' },
+                { 'x', 'o', 'x' },
+                { 'x', 'x', ' ' },
+            }, new char[] { 'o', 'x', 'o', 'x', 'o', 'x', 'x', 'x', ' ' } },
+            new object[] { new char[,] {
+                { 'o', 'x', 'o' },
+                { 'o', ' ', 'x' },
+                { 'x', ' ', ' ' },
+            }, new char[] { 'o', 'x', 'o', 'o', ' ', 'x', 'x', ' ', ' ' } },
+        };
+
+        [Theory]
+        [MemberData(nameof(GetAllSlotsIn1D_Scearios))]
+        public void GetAllSlotsIn1D_Test(char[,] board, char[] expected)
+        {
+            var sut = new XoLogic();
+            var actual = sut.GetAllSlotsIn1D(board);
+            actual.Should().BeEquivalentTo(expected);
+        }
+
         public static IEnumerable<object[]> GetHorizontalSlot_Scearios = new List<object[]>
         {
             new object[] { new char[,] {
